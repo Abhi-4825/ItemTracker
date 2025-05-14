@@ -1,0 +1,17 @@
+# Use a base image with Java 21
+FROM eclipse-temurin:21-jdk
+
+# Set working directory
+WORKDIR /app
+
+# Copy your project files into the image
+COPY . .
+
+# Make Maven wrapper executable
+RUN chmod +x ./mvnw
+
+# Build your application (optional: skip tests to save time)
+RUN ./mvnw clean install -DskipTests
+
+# Run the Spring Boot app
+CMD ["./mvnw", "spring-boot:run"]
